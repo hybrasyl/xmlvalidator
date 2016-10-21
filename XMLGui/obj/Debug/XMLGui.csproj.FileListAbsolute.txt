@@ -2,7 +2,6 @@ D:\Source\Workspaces\GloatWorks\HybrasylXmlValidator\XMLGui\bin\Debug\XMLGui.exe
 D:\Source\Workspaces\GloatWorks\HybrasylXmlValidator\XMLGui\bin\Debug\XMLGui.exe
 D:\Source\Workspaces\GloatWorks\HybrasylXmlValidator\XMLGui\bin\Debug\XMLGui.pdb
 D:\Source\Workspaces\GloatWorks\HybrasylXmlValidator\XMLGui\bin\Debug\Hybrasyl.XML.dll
-D:\Source\Workspaces\GloatWorks\HybrasylXmlValidator\XMLGui\bin\Debug\Hybrasyl.XML.pdb
 D:\Source\Workspaces\GloatWorks\HybrasylXmlValidator\XMLGui\obj\Debug\XMLGui.csprojResolveAssemblyReference.cache
 D:\Source\Workspaces\GloatWorks\HybrasylXmlValidator\XMLGui\obj\Debug\XMLGui.MainForm.resources
 D:\Source\Workspaces\GloatWorks\HybrasylXmlValidator\XMLGui\obj\Debug\XMLGui.Properties.Resources.resources

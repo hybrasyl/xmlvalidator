@@ -57,7 +57,7 @@ namespace XMLGui
         }
 
 
-        private void ValidateXML(string curDir, string xml)
+        private void ValidateXML(string curDir, string xml, string fileName = null, bool processAll = false)
         {
             switch (curDir)
             {
@@ -66,35 +66,43 @@ namespace XMLGui
                     try
                     {
                         var castable = Serializer.Deserialize(XmlReader.Create(new StringReader(xml)), new Castable());
-                        richTextBox1.Text = "Valid Xml.";
+                        if (!processAll)
+                        {
+                            richTextBox1.Text = "Valid Xml."  ;
+                        }
                     }
                     catch (Exception ex)
                     {
-                        richTextBox1.Text = string.Empty;
-                        richTextBox1.Text += ex.Message + "\r\n";
+                            if(!processAll) richTextBox1.Text = string.Empty;
+                            if (fileName != null) richTextBox1.Text += fileName;
+                            richTextBox1.Text += ex.Message + "\r\n";
                         if (ex.InnerException != null)
                             richTextBox1.Text += ex.InnerException.Message + "\r\n";
                     }
 
-                    richTextBox2.Text = xml;
-                }
+                        if (!processAll) richTextBox2.Text = xml;
+                    }
                     break;
                 case "item":
                     {
                         try
                         {
                             var item = Serializer.Deserialize(XmlReader.Create(new StringReader(xml)), new Item());
-                            richTextBox1.Text = "Valid Xml.";
+                            if (!processAll)
+                            {
+                                richTextBox1.Text = "Valid Xml.";
+                            }
                         }
                         catch (Exception ex)
                         {
-                            richTextBox1.Text = string.Empty;
+                            if (!processAll) richTextBox1.Text = string.Empty;
+                            if (fileName != null) richTextBox1.Text += fileName + " ";
                             richTextBox1.Text += ex.Message + "\r\n";
                             if (ex.InnerException != null)
                                 richTextBox1.Text += ex.InnerException.Message + "\r\n";
                         }
-                        
-                        richTextBox2.Text = xml;
+
+                        if (!processAll) richTextBox2.Text = xml;
 
                     }
                     break;
@@ -109,16 +117,20 @@ namespace XMLGui
                         try
                         {
                             var map = Serializer.Deserialize(XmlReader.Create(new StringReader(xml)), new Map());
-                            richTextBox1.Text = "Valid Xml.";
+                            if (!processAll)
+                            {
+                                richTextBox1.Text = "Valid Xml.";
+                            }
                         }
                         catch (Exception ex)
                         {
-                            richTextBox1.Text = string.Empty;
+                            if (!processAll) richTextBox1.Text = string.Empty;
+                            if (fileName != null) richTextBox1.Text += fileName + " ";
                             richTextBox1.Text += ex.Message + "\r\n";
                             if (ex.InnerException != null)
                                 richTextBox1.Text += ex.InnerException.Message + "\r\n";
                         }
-                        richTextBox2.Text = xml;
+                        if (!processAll) richTextBox2.Text = xml;
                     }
                     break;
                 case "nation":
@@ -126,16 +138,20 @@ namespace XMLGui
                         try
                         {
                             var nation = Serializer.Deserialize(XmlReader.Create(new StringReader(xml)), new Nation());
-                            richTextBox1.Text = "Valid Xml.";
+                            if (!processAll)
+                            {
+                                richTextBox1.Text = "Valid Xml.";
+                            }
                         }
                         catch (Exception ex)
                         {
-                            richTextBox1.Text = string.Empty;
+                            if (!processAll) richTextBox1.Text = string.Empty;
+                            if (fileName != null) richTextBox1.Text += fileName + " ";
                             richTextBox1.Text += ex.Message + "\r\n";
                             if (ex.InnerException != null)
                                 richTextBox1.Text += ex.InnerException.Message + "\r\n";
                         }
-                        richTextBox2.Text = xml;
+                        if (!processAll) richTextBox2.Text = xml;
 
                     }
                     break;
@@ -144,16 +160,20 @@ namespace XMLGui
                         try
                         {
                             var worldmap = Serializer.Deserialize(XmlReader.Create(new StringReader(xml)), new WorldMap());
-                            richTextBox1.Text = "Valid Xml.";
+                            if (!processAll)
+                            {
+                                richTextBox1.Text = "Valid Xml.";
+                            }
                         }
                         catch (Exception ex)
                         {
-                            richTextBox1.Text = string.Empty;
+                            if (!processAll) richTextBox1.Text = string.Empty;
+                            if (fileName != null) richTextBox1.Text += fileName + " ";
                             richTextBox1.Text += ex.Message + "\r\n";
                             if (ex.InnerException != null)
                                 richTextBox1.Text += ex.InnerException.Message + "\r\n";
                         }
-                        richTextBox2.Text = xml;
+                        if(!processAll) richTextBox2.Text = xml;
                     }
                     break;
                 default:
@@ -172,6 +192,18 @@ namespace XMLGui
         {
             var path = listBox1.SelectedItem.ToString();
             File.WriteAllText(path, richTextBox2.Text);
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            listBox1.Items.Clear();
+            var path = (string)comboBox1.SelectedItem;
+            foreach (var file in Directory.GetFiles(path).Where(x => x.ToLower().EndsWith(".xml")).ToList())
+            {
+                var xml = File.ReadAllText(file);
+                ValidateXML(curDir, xml, file,true);
+
+            }
         }
     }
 }
