@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace XMLGui.Properties
+namespace XMLValidator.Properties
 {
 
 
