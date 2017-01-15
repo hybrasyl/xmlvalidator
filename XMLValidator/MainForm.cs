@@ -45,7 +45,7 @@ namespace XMLValidator
 
         private void GetWorldDirectory()
         {
-            var dirKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Hybrasyl").CreateSubKey("XMLValidator");
+            var dirKey = Microsoft.Win32.Registry.CurrentUser.CreateSubKey("Software").CreateSubKey("Hybrasyl").CreateSubKey("CurrentVersion").CreateSubKey("XMLValidator");
             if (FolderDialog.ShowDialog() == DialogResult.OK)
             {
                 WorldDataDir = FolderDialog.SelectedPath;
@@ -66,14 +66,22 @@ namespace XMLValidator
         }
         private void ReloadXMLDirectories()
         {
-            comboBox1.Items.Clear();
-            foreach (var folder in Directory.GetDirectories($"{WorldDataDir}\\xml\\"))
+            try
             {
-                comboBox1.Items.Add(new DirectoryInfo(folder).Name);
+                comboBox1.Items.Clear();
+                foreach (var folder in Directory.GetDirectories($"{WorldDataDir}\\xml\\"))
+                {
+                    comboBox1.Items.Add(new DirectoryInfo(folder).Name);
+                }
+                richTextBoxWorldDir.Text = WorldDataDir;
+                comboBox1.SelectedIndex = 0;
+                richTextBoxOutput.Text = $"{WorldDataDir} ready for processing.";
             }
-            richTextBoxWorldDir.Text = WorldDataDir;
-            comboBox1.SelectedIndex = 0;
-
+            catch (Exception e)
+            {
+                richTextBoxOutput.Text = $"{WorldDataDir} does not contain an XML subdirectory!";
+            }
+            
         }
 
         private void ProcessXMLDirectory(string path)
